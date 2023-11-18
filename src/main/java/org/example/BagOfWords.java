@@ -37,15 +37,19 @@ public class BagOfWords {
         return output;
     }
 
-    public void getScore(String title) {
+    public void getScores(List<String> titles) {
+        for (String title: titles) {
+            getScoreForTitle(title);
+        }
+    }
+
+    public void getScoreForTitle(String title) {
         int count = 0;
         String label;
 
         List<String> words = List.of(title.split(" "));
         for (String word : words) {
-            if (stopWords.contains(word)) {
-                count += 0;
-            } else if (positiveWords.contains(word)) {
+            if (positiveWords.contains(word)) {
                 count += 1;
             } else if (negativeWords.contains(word)){
                 count -= 1;

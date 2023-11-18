@@ -26,10 +26,10 @@ public class Parser {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                sb.append(line);
+                sb.append(line).append(" ");
             }
 
-            return sb.toString();
+            return sb.toString().trim();
 
         } catch (IOException e) {
             e.printStackTrace();

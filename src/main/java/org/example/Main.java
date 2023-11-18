@@ -33,5 +33,11 @@ public class Main {
         //write reut data without special symbols and stop words
         FileUtils.writeToFile(reut009WithoutStopWords, reut009WithoutStopWordsPath);
         FileUtils.writeToFile(reut014WithoutStopWords, reut014WithoutStopWordsPath);
+
+        Parser reut009ParserWithoutStopWords = new Parser(reut009WithoutStopWordsPath);
+        Parser reut014ParserWithoutStopWords = new Parser(reut014WithoutStopWordsPath);
+
+        bow.getScores(reut009ParserWithoutStopWords.news.keySet().stream().toList());
+        bow.getScores(reut014ParserWithoutStopWords.news.keySet().stream().toList());
     }
 }
