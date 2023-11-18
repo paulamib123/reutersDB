@@ -9,15 +9,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    public static Map<String, String> news = new HashMap<>();
+    public Map<String, String> news;
+    public String filePath;
     public static int count = 0;
 
-    Parser() {
-        String filePath = "/Users/paulamib/Documents/Apple/Development/newsDB/src/main/resources/reut2-009.sgm";
-        String filePath2 = "/Users/paulamib/Documents/Apple/Development/newsDB/src/main/resources/reut2-014.sgm";
-
+    Parser(String path) {
+        filePath = path;
+        news = new HashMap<>();
         extractDataFromReutersWithRegex(readNews(filePath));
-        extractDataFromReutersWithRegex(readNews(filePath2));
     }
 
     public static String readNews(String path) {
@@ -74,10 +73,7 @@ public class Parser {
                     replaceFirst(">", ",");
 
             if (!title.isBlank() && !body.isBlank()) {
-                news.put(title.toLowerCase(), body.toLowerCase());
-//                System.out.println("Title: " + title.toLowerCase());
-//                System.out.println("Body: " + body.toLowerCase());
-//                System.out.println("------");
+                this.news.put(title.toLowerCase(), body.toLowerCase());
                 count++;
             }
         }

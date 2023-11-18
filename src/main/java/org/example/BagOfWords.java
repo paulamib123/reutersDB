@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class BagOfWords {
@@ -9,9 +11,30 @@ public class BagOfWords {
     public Set<String> negativeWords;
 
     BagOfWords() {
-        stopWords = FileUtils.readFileAndStoreInSet("/Users/paulamib/Documents/Apple/Development/newsDB/src/main/resources/stopwords.txt");
-        positiveWords = FileUtils.readFileAndStoreInSet("/Users/paulamib/Documents/Apple/Development/newsDB/src/main/resources/positivewords.txt");
-        negativeWords = FileUtils.readFileAndStoreInSet("/Users/paulamib/Documents/Apple/Development/newsDB/src/main/resources/negativewords.txt");
+        stopWords = FileUtils.readFileAndStoreInSet("src/main/resources/stopwords.txt");
+        positiveWords = FileUtils.readFileAndStoreInSet("src/main/resources/positivewords.txt");
+        negativeWords = FileUtils.readFileAndStoreInSet("src/main/resources/negativewords.txt");
+    }
+
+    public String removeStopWords(String[] sentence) {
+        String result = "";
+        for (String word: sentence) {
+            if (!stopWords.contains(word)) {
+                result =  result + word + " ";
+            }
+        }
+        return result.trim();
+    }
+    public Map<String, String> removeStopWordsFromNews(Map<String, String> input) {
+        Map<String, String> output = new HashMap<>();
+        for (Map.Entry<String, String> entry : input.entrySet()) {
+            String title = entry.getKey();
+            String body = entry.getValue();
+            String cleanTitle = removeStopWords(title.split(" "));
+            String cleanBody = removeStopWords(body.split(" "));
+            output.put(cleanTitle, cleanBody);
+        }
+        return output;
     }
 
     public void getScore(String title) {
